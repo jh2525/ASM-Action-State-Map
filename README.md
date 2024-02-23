@@ -20,6 +20,8 @@ Using the action-state map offers several advantages:
 
 For example, Go is a deterministic environment, so if we define $\eta(s_t, a_t)$ as the action taken from state $s_t$ by taking action $a_t$, then $\overline{Q}(s_t, a_t) = V(s_{t+1})$. Even in non-deterministic environments, it can provide additional information about the outcome of taking an action. For instance, consider the card game Big Two. Although it's not deterministic, by adding information about the remaining cards in hand after discarding, we can construct action-states. By including such information, even though we can't predict the next state, we gain more advantages than having no information at all.
 
+![go](https://github.com/jh2525/jh2525.github.io/assets/160830734/634b2ab8-cbbc-43f0-b63c-9ee0d1c85880)
+
 2. Handling various action shapes and illegal actions becomes easier.
 
 Consider the Big Two game environment mentioned earlier. With numerous possible hand combinations, calculating logits and action values for every possible action poses challenges, especially with illegal actions.
@@ -35,13 +37,7 @@ The $\epsilon$-greedy policy selects the action that has the highest estimated a
 
 This policy is defined as follows:
 
-$
-\pi_{\epsilon}(s) = 
-\begin{cases}
-\text{argmax}_a Q(s, a) & \text{with probability } \epsilon \\
-\text{action on }\pi & \text{with probability } 1-\epsilon
-\end{cases}
-$
+$\pi_{\epsilon}(s) = \begin{cases}\text{argmax}_a Q(s, a) & \text{with probability } \epsilon \\\text{action on }\pi & \text{with probability } 1-\epsilon\end{cases}$
 
 Using this policy, the agent can balance between exploiting actions with high expected values and exploring other actions to improve the learning process.
 
