@@ -89,7 +89,7 @@ where $\beta > 0$.
 
 There are some notable points:
 - If all taken actions are actions that have the maximum action value, the max action entropy penalty is always 0 for any $\beta$.
-- If the max action entropy penalty decreases, $\pi(s, \argmax_a Q(s, a))$ tends to increase.
+- If the max action entropy penalty decreases, $\pi(s, \text{argmax}_a Q(s, a))$ tends to increase.
 
 # 6.handling of gradient exploding
 
@@ -136,7 +136,7 @@ Randomly **initialize** the actor and critic parameters $\theta_1, \theta_2$
 ㅤㅤ**For** $j = 1, 2, \dots, K$ do  
 ㅤㅤㅤㅤ**Sample** train data in $\mathcal{M}$  
 ㅤㅤㅤㅤ**Optimize** $\theta_C$ by minimizing $(Q_{\theta_C}(s, a) - T(s, a))^2$  
-ㅤㅤㅤㅤ**Calculate** probability ratio $r_p = {\pi_\theta(s, a)}/{\pi_{\theta_{\text{old}}}(s, a)} \approx {\pi^{\theta}_{\theta_\text{old}}(s, a)}/{\pi_{\theta_{\text{old}}}(s, a)}$ using algorithm 5.1  
+ㅤㅤㅤㅤ**Calculate** probability ratio $r_p = \pi_\theta(s, a) / \pi_{\theta_{\text{old}}(s, a)} \approx \pi^{\theta}_{\theta_\text{old}}(s, a) / \pi_{\theta_{\text{old}}}(s, a)$ using algorithm 5.1  
 ㅤㅤㅤㅤ**Optimize** $\theta_A$ by minimizing $-\min(Ar_p, \text{clip}(Ar_p, 1-\epsilon, 1+\epsilon))$  
 ㅤㅤ**Clear** $\mathcal{M}$
 
