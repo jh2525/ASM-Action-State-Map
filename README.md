@@ -83,7 +83,7 @@ In cases where we do not use an approximation of $\pi$, there is a straightforwa
 
 We can simply employ the 'max action entropy penalty,' defined as:
 
-$$\text{max action entropy penalty} = -\beta\mathbb{E}\left[\left\{Q(s, \text{argmax}_a Q(s, a)) - Q(s, a)\right\}\log{\pi(s, a)}\right]$$
+$$\text{max action entropy penalty} = -\beta\mathbb{E} \left[ \left\{Q(s, \text{argmax}_a Q(s, a)) - Q(s, a) \right\} \log{\pi(s, a)} \right]$$
 
 where $\beta > 0$.
 
