@@ -77,7 +77,21 @@ $\displaystyle{
 
 The crucial point here is that $\rho$ is independent of the logit value chosen for our action. Therefore, if we assume that during training, we mainly alter the logits of actions taken, then using $\pi_{\theta_1}^{\theta_2}$ instead of $\pi_{\theta_2}$ during training is a good approximation. Hence, we only need to compute logits for the actions we take. This makes training approximately $n$ times more efficient if there are $n$ actions to choose from on average. $\pi_{\theta_2}$
 
-# 5.handling of gradient exploding
+# 5. max action entropy
+
+In cases where we do not use an approximation of $\pi$, there is a straightforward method to motivate the reduction of the gap between the maximum value action and the action with the maximum probability.
+
+We can simply employ the 'max action entropy penalty,' defined as:
+
+$$\text{max action entropy penalty} = -\beta\mathbb{E}\left[\left\{Q(s, \text{argmax}_a Q(s, a)) - Q(s, a)\right\}\log{\pi(s, a)}\right]$$
+
+where $\beta > 0$.
+
+There are some notable points:
+- If all taken actions are actions that have the maximum action value, the max action entropy penalty is always 0 for any $\beta$.
+- If the max action entropy penalty decreases, $\pi(s, \argmax_a Q(s, a))$ tends to increase.
+
+# 6.handling of gradient exploding
 
 As explained above, when progressing with actual learning through methods 3 and 4, we sometimes face the issue of gradient exploding. In the case of method 3, following the epsilon-greedy policy, when choosing actions, the problem arises when the probability of taking a certain action according to the policy is close to zero. Even a slight change in the probability of taking that action can lead to a significant change in the probability ratio. Therefore, when calculating the probability ratio, we use clipping to ensure that the difference between the two log probabilities does not exceed a certain value. In the case of method 4, when the value of the logit becomes very large, gradient exploding can occur. To address this, we separately store the max logit value and use it accordingly.
 ## Algorithm 5.1: Calculate policy by using $\rho$
@@ -97,10 +111,7 @@ As explained above, when progressing with actual learning through methods 3 and 
 **Set** $\rho_{\theta_1} = \sum_{a_i \neq a}{e^{l_{\theta_1}(s, a_i) - l_{\text{max}}}}$  
 $\pi_{\theta2} \approx \pi_{\theta_1}^{\theta_2} = \frac{e^{l_{\theta_2(s, a)} - l_{\text{max}}}}{\rho_{\theta_1} + e^{l_{\theta_2(s, a)} - l_{\text{max}}}}$
 
-
-
-
-# 6.Result
+# 7.Result
 I have been utilizing this algorithm in BigTwo and achieved superhuman performance despite having relatively small parameters. For further details, please refer to [BigTwo](https://github.com/jh2525/BigTwo). (but not use apporximation of $\pi$)
 
 # Appendix
