@@ -1,5 +1,5 @@
 # 1.Introduction
-Some environments have a large number of possible actions. For example, consider playing Go on a $19\times19$ grid board. In this case, the number of possible initial moves is 19*19 = 361, and as each player takes turns, the number of possible moves decreases. Let's imagine creating an agent to play Go using a deep neural network. Then, how should we determine the action values or probabilities for each action based on where a stone is placed?
+Some environments have a large number of possible actions. For example, consider playing Go on a $19\times19$ grid board. In this case, the number of possible initial moves is $19\times19 = 361$, and as each player takes turns, the number of possible moves decreases. Let's imagine creating an agent to play Go using a deep neural network. Then, how should we determine the action values or probabilities for each action based on where a stone is placed?
 
 A simple approach would be to output a value for each of the $19\times19$ positions, representing the probability of placing a stone there and the value of placing a stone there. While straightforward, this approach has some drawbacks in the environment we've envisioned. Firstly, there's the issue of how to handle illegal actions. There are various ways to handle illegal actions, such as penalizing them or masking them to prevent them from being chosen. Secondly, always outputting values for all actions can be inefficient. How can we overcome these challenges? In this text, we'll address this by computing values for each action state pair that satisfies a one-to-one correspondence, thus resolving the issues. However, there are still some problems with this approach, particularly regarding learning methods and efficiency. Nonetheless, these issues can be addressed by combining policy function approximation with existing policies, defining action states, and exploring solutions for them.
 
@@ -77,13 +77,13 @@ $\displaystyle{
 
 The crucial point here is that $\rho$ is independent of the logit value chosen for our action. Therefore, if we assume that during training, we mainly alter the logits of actions taken, then using $\pi_{\theta_1}^{\theta_2}$ instead of $\pi_{\theta_2}$ during training is a good approximation. Hence, we only need to compute logits for the actions we take. This makes training approximately $n$ times more efficient if there are $n$ actions to choose from on average. $\pi_{\theta_2}$
 
-# 5. max action entropy
+# 5.max action entropy
 
 In cases where we do not use an approximation of $\pi$, there is a straightforward method to motivate the reduction of the gap between the maximum value action and the action with the maximum probability.
 
 We can simply employ the 'max action entropy penalty,' defined as:
 
-$$\text{max action entropy penalty} = -\beta\mathbb{E}[\{Q(s, \text{argmax}_aQ(s, a)) - Q(s, a)\}\log{\pi(s, a)}]$$
+$$\text{max action entropy penalty} = -\beta\mathbb{E}[\left\{Q(s, \text{argmax}_aQ(s, a)) - Q(s, a)\right\}\log{\pi(s, a)}]$$
 
 where $\beta > 0$.
 
