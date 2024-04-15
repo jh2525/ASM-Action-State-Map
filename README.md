@@ -126,17 +126,17 @@ I have been utilizing this algorithm in BigTwo and achieved superhuman performan
 Randomly **initialize** the actor and critic parameters $\theta_1, \theta_2$  
 **Initialize** the old actor network $\theta_{A_\text{old}}$  
 **For** $i = 1, 2, \dots, N$ do  
->**Set** $\theta_{A_\text{old}} = \theta_A$  
->>**Let** $\pi$ be the actor-based epsilon-greedy policy of $\pi_{\theta}$ as $\epsilon_p$   
-ㅤㅤ**While** not truncated nor terminated do  
-ㅤㅤㅤㅤ**Step** using policy $\pi$  
-ㅤㅤㅤㅤ**Stack** $(\eta(s, a), r, v = \sum{\pi_{\theta}(s, a)Q(s, a)}, \log{\pi_{\theta}(s, a)}, \rho(s, a), l_\text{max})$ in $\mathcal{M}$  
-ㅤㅤ**For** $j = 1, 2, \dots, K$ do  
-ㅤㅤㅤㅤ**Sample** train data in $\mathcal{M}$  
-ㅤㅤㅤㅤ**Optimize** $\theta_{C}$ by minimizing $(Q_{\theta_{C}}(s, a) - T(s, a))^2$  
-ㅤㅤㅤㅤ**Calculate** probability ratio $r_{p} = \frac{\pi_{\theta}(s, a)}{\pi_{\theta_{\text{old}}}(s, a)} \approx \frac{\pi^{\theta}_{\theta_{\text{old}}}(s, a)}{\pi_{\theta_{\text{old}}}(s, a)}$ using Algorithm 5.1  
-ㅤㅤㅤㅤ**Optimize** $\theta_A$ by minimizing $-\min(Ar_p, \text{clip}(Ar_p, 1-\epsilon, 1+\epsilon))$  
-ㅤㅤ**Clear** $\mathcal{M}$
+**Set** $\theta_{A_\text{old}} = \theta_A$  
+　　**Let** $\pi$ be the actor-based epsilon-greedy policy of $\pi_{\theta}$ as $\epsilon_p$   
+　　**While** not truncated nor terminated do  
+　　　　**Step** using policy $\pi$  
+　　　　**Stack** $(\eta(s, a), r, v = \sum{\pi_{\theta}(s, a)Q(s, a)}, \log{\pi_{\theta}(s, a)}, \rho(s, a), l_\text{max})$ in $\mathcal{M}$  
+　　**For** $j = 1, 2, \dots, K$ do  
+　　　　**Sample** train data in $\mathcal{M}$  
+　　　　**Optimize** $\theta_{C}$ by minimizing $(Q_{\theta_{C}}(s, a) - T(s, a))^2$  
+　　　　**Calculate** probability ratio $r_{p} = \frac{\pi_{\theta}(s, a)}{\pi_{\theta_{\text{old}}}(s, a)} \approx \frac{\pi^{\theta}_{\theta_{\text{old}}}(s, a)}{\pi_{\theta_{\text{old}}}(s, a)}$ using Algorithm 5.1  
+　　　　**Optimize** $\theta_A$ by minimizing $-\min(Ar_p, \text{clip}(Ar_p, 1-\epsilon, 1+\epsilon))$  
+　　**Clear** $\mathcal{M}$
 
 ## B. State-Value Based Action-State Algorithm
 The state-value based action-state algorithm calculates state values and action probabilities using two components instead of predicting state-action values as follows:
