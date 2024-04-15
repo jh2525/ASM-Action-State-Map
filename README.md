@@ -39,7 +39,7 @@ The issue we face now is having to compute logits for actions not taken. To over
 
 $\pi(s, a) = \frac{e^{l(s, a)}}{\rho(s, a) + e^{l(s, a)}}$
 
-Now, let's denote the policies and logits corresponding to two parameters $\theta_1$ and $\theta_2$ as $\pi_{\theta_1}$, $\pi_{\theta_2}$, $l_{\theta_1}$, and $l_{\theta_2}$, respectively. Similarly, let $\sum_{i=1}^{n} e^{l_{\theta_i}(s, a_i)} - e^{l_{\theta_i}(s,a)} = \rho_{\theta_i}(s, a)$ for $i = 1, 2$. Then, we define the policy $\pi_{\theta_1}^{\theta_2}$ for $\theta_1$ regarding $\theta_2$ as follows:
+Now, let's denote the policies and logits corresponding to two parameters $\theta_1$ and $\theta_2$ as $\pi_{\theta_1}$, $\pi_{\theta_2}$, $l_{\theta_1}$, and $l_{\theta_2}$, respectively. Similarly, let $\sum\limits_{i=1}^{n} e^{l_{\theta_i}(s, a_i)} - e^{l_{\theta_i}(s,a)} = \rho_{\theta_i}(s, a)$ for $i = 1, 2$. Then, we define the policy $\pi_{\theta_1}^{\theta_2}$ for $\theta_1$ regarding $\theta_2$ as follows:
 
 $$\pi_{\theta_1}^{\theta_2}(s, a) = \frac{e^{l_{\theta_2}(s, a)}}{\rho_{\theta_1}(s, a) + e^{l_{\theta_2}(s, a)}}$$
 
@@ -126,8 +126,8 @@ I have been utilizing this algorithm in BigTwo and achieved superhuman performan
 Randomly **initialize** the actor and critic parameters $\theta_1, \theta_2$  
 **Initialize** the old actor network $\theta_{A_\text{old}}$  
 **For** $i = 1, 2, \dots, N$ do  
-ㅤㅤ**Set** $\theta_{A_\text{old}} = \theta_A$  
-ㅤㅤ**Let** $\pi$ be the actor-based epsilon-greedy policy of $\pi_{\theta}$ as $\epsilon_p$   
+>**Set** $\theta_{A_\text{old}} = \theta_A$  
+>>**Let** $\pi$ be the actor-based epsilon-greedy policy of $\pi_{\theta}$ as $\epsilon_p$   
 ㅤㅤ**While** not truncated nor terminated do  
 ㅤㅤㅤㅤ**Step** using policy $\pi$  
 ㅤㅤㅤㅤ**Stack** $(\eta(s, a), r, v = \sum{\pi_{\theta}(s, a)Q(s, a)}, \log{\pi_{\theta}(s, a)}, \rho(s, a), l_\text{max})$ in $\mathcal{M}$  
