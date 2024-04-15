@@ -33,9 +33,9 @@ when we try to train a policy using the action-state map, we face the challenge 
 
 Let's denote the logit when taking action $a$ in state $s$ as $l(s, a)$. Then, the probability using softmax to obtain $\pi(s, a)$ when the state is $s$ can be expressed as:
 
-$\pi(s, a) = \frac{e^{l(s, a)}}{\sum_{i=1}^{n} e^{l(s, a_i)}}$
+$\pi(s, a) = \frac{e^{l(s, a)}}{\sum\limits_{i=1}^{n} e^{l(s, a_i)}}$
 
-The issue we face now is having to compute logits for actions not taken. To overcome this, we'll store the value $\sum_{i=1}^{n} e^{l(s, a_i)} - e^{l(s,a)} = \rho(s, a)$ during inference and utilize it. Then, the probability can be calculated as:
+The issue we face now is having to compute logits for actions not taken. To overcome this, we'll store the value $\sum\limits_{i=1}^{n} e^{l(s, a_i)} - e^{l(s,a)} = \rho(s, a)$ during inference and utilize it. Then, the probability can be calculated as:
 
 $\pi(s, a) = \frac{e^{l(s, a)}}{\rho(s, a) + e^{l(s, a)}}$
 
@@ -133,8 +133,8 @@ Randomly **initialize** the actor and critic parameters $\theta_1, \theta_2$
 ㅤㅤㅤㅤ**Stack** $(\eta(s, a), r, v = \sum{\pi_{\theta}(s, a)Q(s, a)}, \log{\pi_{\theta}(s, a)}, \rho(s, a), l_\text{max})$ in $\mathcal{M}$  
 ㅤㅤ**For** $j = 1, 2, \dots, K$ do  
 ㅤㅤㅤㅤ**Sample** train data in $\mathcal{M}$  
-ㅤㅤㅤㅤ**Optimize** $\theta_C$ by minimizing $(Q_{\theta_C}(s, a) - T(s, a))^2$  
-ㅤㅤㅤㅤ**Calculate** probability ratio $r_p = \frac{\pi_{\theta}(s, a)}{\pi_{\theta_{\text{old}}}(s, a)} \approx \frac{\pi^{\theta}_{\theta_\text{old}}(s, a)}{\pi_{\theta_{\text{old}}}(s, a)}$ using Algorithm 5.1  
+ㅤㅤㅤㅤ**Optimize** $\theta_{C}$ by minimizing $(Q_{\theta_{C}}(s, a) - T(s, a))^2$  
+ㅤㅤㅤㅤ**Calculate** probability ratio $r_{p} = \frac{\pi_{\theta}(s, a)}{\pi_{\theta_{\text{old}}}(s, a)} \approx \frac{\pi^{\theta}_{\theta_{\text{old}}}(s, a)}{\pi_{\theta_{\text{old}}}(s, a)}$ using Algorithm 5.1  
 ㅤㅤㅤㅤ**Optimize** $\theta_A$ by minimizing $-\min(Ar_p, \text{clip}(Ar_p, 1-\epsilon, 1+\epsilon))$  
 ㅤㅤ**Clear** $\mathcal{M}$
 
