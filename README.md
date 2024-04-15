@@ -134,7 +134,7 @@ Randomly **initialize** the actor and critic parameters $\theta_1, \theta_2$
 　　**For** $j = 1, 2, \dots, K$ do  
 　　　　**Sample** train data in $\mathcal{M}$  
 　　　　**Optimize** $\theta_{C}$ by minimizing $(Q_{\theta_{C}}(s, a) - T(s, a))^2$  
-　　　　**Calculate** probability ratio $r_{p} = \frac{\pi_{\theta}(s, a)}{\pi_{\theta_{\text{old}}}(s, a)} \approx \frac{\pi^{\theta}_{\theta_{\text{old}}}(s, a)}{\pi_{\theta_{\text{old}}}(s, a)}$ using Algorithm 5.1  
+　　　　**Calculate** probability ratio $r_{p} = \frac{\pi_{\theta}(s, a)}{\pi_{\theta_{\text{old}}}(s, a)} \approx \frac{\pi^{\theta}{\theta_{\text{old}}}(s, a)}{\pi_{\theta_{\text{old}}}(s, a)}$ using Algorithm 5.1  
 　　　　**Optimize** $\theta_A$ by minimizing $-\min(Ar_p, \text{clip}(Ar_p, 1-\epsilon, 1+\epsilon))$  
 　　**Clear** $\mathcal{M}$
 
